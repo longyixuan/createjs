@@ -28,14 +28,14 @@ function init() {
 	hh = document.documentElement.clientHeight;
 	sc = ww / 640;
 	getLoad(sences[0],0);
-	initSet();
+	// initSet();
 	stage = new createjs.Stage(canvas);
 	createjs.Touch.enable(stage);
 	// createjs.Ticker.setFPS(40);
 }
 //设置加载；
 function getLoad(tts,num){
-	var comp = AdobeAn.getComposition(tts);
+	var comp = window['AdobeAn'+ (num+1)].getComposition(tts);
 	var lib = comp.getLibrary();
 	console.log('开始加载场景'+num);
 	var loader = new createjs.LoadQueue(false);
@@ -46,7 +46,6 @@ function getLoad(tts,num){
 	loader.addEventListener("complete", function (evt) {
 		handleComplete(evt, comp,num);
 	});
-	// lib.properties.manifest.push({src:"sounds/sea.mp3",id:"sea"});
 	loader.loadManifest(lib.properties.manifest);
 }
 function handleFileLoad(evt, comp, num) {
@@ -67,15 +66,20 @@ function handleComplete(evt,comp,num) {
 	var ss=comp.getSpriteSheet();
 	var queue = evt.target;
 	var ssMetadata = lib.ssMetadata;
-	console.log(ss[ssMetadata[0].name])
 	for(i=0; i<ssMetadata.length; i++) {
 		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
 	}
-	lib1 = new lib.page1();
+	lib0 = new lib.page();
 	stage = new lib.Stage(canvas);
-	AdobeAn.makeResponsive(true,'width',true,1,[canvas,anim_container,dom_overlay_container]);	
-	AdobeAn.compositionLoaded(lib.properties.id);
+	['AdobeAn'+ (num+1)].makeResponsive(true,'width',true,1,[canvas,anim_container,dom_overlay_container]);	
+	['AdobeAn'+ (num+1)].compositionLoaded(lib.properties.id);
 	mvBox=new createjs.Container();
+	var shape=new createjs.Shape();
+	var graphics=shape.graphics;
+	graphics.beginFill("red");
+	graphics.drawCircle(50,50,50);
+	mvBox.addChild(shape);
+	shape.addEventListener("click",clickEvent);
 	mvBox.addChild(lib0)
 	stage.addChild(mvBox);
 	createjs.Ticker.framerate = lib.properties.fps;
@@ -83,7 +87,11 @@ function handleComplete(evt,comp,num) {
 	getScence();
 	stage.update();
 }
-
+function clickEvent(event){
+	console.log(event)
+	getLoad(sences[1],1);
+	// stage.update();
+}
 function initSet() {
 	//禁止双击缩放屏幕
 	if (agent.indexOf('iphone') >= 0 || agent.indexOf('ipad') >= 0) //检测是否是ios
@@ -101,7 +109,6 @@ function initSet() {
 			iLastTouch = iNow;
 		}, false);
 	}
-
 	//在安卓中长按事件
 	document.oncontextmenu = function (e) {
 		e.preventDefault();

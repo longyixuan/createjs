@@ -78,7 +78,7 @@
     
     
     // stage content:
-    (lib.page3 = function(mode,startPosition,loop) {
+    (lib.page = function(mode,startPosition,loop) {
         this.initialize(mode,startPosition,loop,{});
     
         // 图层_3
@@ -209,5 +209,5 @@
     }
     
     
-    })(createjs = createjs||{}, AdobeAn = AdobeAn||{});
-    var createjs, AdobeAn;
+    })(createjs = createjs||{}, AdobeAn3 = AdobeAn3||{});
+    var createjs, AdobeAn3;

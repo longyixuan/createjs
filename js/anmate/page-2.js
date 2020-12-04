@@ -247,7 +247,7 @@
     }).prototype = p = new cjs.MovieClip();
     p.nominalBounds = new cjs.Rectangle(-358.3,-419.8,716.6,716.7);
     // stage content:
-    (lib.page2 = function(mode,startPosition,loop) {
+    (lib.page = function(mode,startPosition,loop) {
         this.initialize(mode,startPosition,loop,{});
         // 图层_8
         this.instance = new lib.元件8("synched",0);
@@ -373,5 +373,5 @@
             stage.tickOnUpdate = true;		
         }
     }
-})(createjs = createjs||{}, AdobeAn = AdobeAn||{});
-var createjs, AdobeAn;
+})(createjs = createjs||{}, AdobeAn2 = AdobeAn2||{});
+var createjs, AdobeAn2;

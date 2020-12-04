@@ -168,7 +168,7 @@
 
 
     // stage content:
-    (lib.page5 = function (mode, startPosition, loop) {
+    (lib.page = function (mode, startPosition, loop) {
         this.initialize(mode, startPosition, loop, {});
 
         // 图层_9
@@ -385,5 +385,5 @@
     }
 
 
-})(createjs = createjs || {}, AdobeAn = AdobeAn || {});
-var createjs, AdobeAn;
+})(createjs = createjs || {}, AdobeAn5 = AdobeAn5 || {});
+var createjs, AdobeAn5;

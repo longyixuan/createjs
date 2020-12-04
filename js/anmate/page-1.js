@@ -51,7 +51,7 @@
         this._renderFirstFrame();
     }).prototype = getMCSymbolPrototype(lib.元件1, new cjs.Rectangle(0,0,146,92), null);
     // stage content:
-    (lib.page1 = function(mode,startPosition,loop) {
+    (lib.page = function(mode,startPosition,loop) {
         this.initialize(mode,startPosition,loop,{});
         // 图层_3
         this.instance = new lib.元件2();
@@ -164,5 +164,5 @@
             stage.tickOnUpdate = true;		
         }
     }
-})(createjs = createjs||{}, AdobeAn = AdobeAn||{});
-var createjs, AdobeAn;
+})(createjs = createjs||{}, AdobeAn1 = AdobeAn1||{});
+var createjs, AdobeAn1;
