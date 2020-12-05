@@ -8,6 +8,7 @@ var sences=[
 	'CF12A6DAA7534C768BFBE725D0498B70',
 	'2C776BB00C5E453DB8154CC605C8134D'
 ];
+var curSence = 0;
 var senceload=[false,false,false,false];
 var touchmove = mobile ? "touchmove" : "mousemove";
 var canvas,
@@ -33,9 +34,28 @@ function init() {
 	createjs.Touch.enable(stage);
 	// createjs.Ticker.setFPS(40);
 }
+// 获取对象
+function getAnObj(num) {
+	if (num==0) {
+		return AdobeAn1;
+	}
+	if (num==1) {
+		return AdobeAn2;
+	}
+	if (num==2) {
+		return AdobeAn3;
+	}
+	if (num==3) {
+		return AdobeAn4;
+	}
+	if (num==4) {
+		return AdobeAn5;
+	}
+}
 //设置加载；
 function getLoad(tts,num){
-	var comp = window['AdobeAn'+ (num+1)].getComposition(tts);
+	console.log(curSence)
+	var comp = getAnObj(num).getComposition(tts);
 	var lib = comp.getLibrary();
 	console.log('开始加载场景'+num);
 	var loader = new createjs.LoadQueue(false);
@@ -61,6 +81,9 @@ function handleOverallProgress(evt, comp,num) {
 	var per = Math.ceil(evt.loaded * 100); //加载文件进度
 }
 function handleComplete(evt,comp,num) {
+	if (num<4) {
+		curSence = num + 1;
+	}
 	senceload[num]=true;
 	var lib=comp.getLibrary();
 	var ss=comp.getSpriteSheet();
@@ -71,8 +94,8 @@ function handleComplete(evt,comp,num) {
 	}
 	lib0 = new lib.page();
 	stage = new lib.Stage(canvas);
-	['AdobeAn'+ (num+1)].makeResponsive(true,'width',true,1,[canvas,anim_container,dom_overlay_container]);	
-	['AdobeAn'+ (num+1)].compositionLoaded(lib.properties.id);
+	getAnObj(num).makeResponsive(true,'width',true,1,[canvas,anim_container,dom_overlay_container]);	
+	getAnObj(num).compositionLoaded(lib.properties.id);
 	mvBox=new createjs.Container();
 	var shape=new createjs.Shape();
 	var graphics=shape.graphics;
@@ -88,8 +111,7 @@ function handleComplete(evt,comp,num) {
 	stage.update();
 }
 function clickEvent(event){
-	console.log(event)
-	getLoad(sences[1],1);
+	getLoad(sences[curSence],curSence);
 	// stage.update();
 }
 function initSet() {
@@ -120,6 +142,6 @@ function getScence(){
 	S.on('tick',function(e){
 	})
 	S.addEventListener('stagemousedown',function(e){
-		console.log(e)
+		// console.log(e)
 	});
 }
